@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{#  563492ad6f91700001000001af442567fd6a482cb3988fea1c48c344#}
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body%}
+        <main class="main-content">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/home">Home</a>
+                    <span>News</span>
+                </div>
+            </div>
+            <div class="count">
+                {{ pagination.getTotalItemCount }}
+            </div>
+
+            <div class="fullwidth-block">
+                <div class="container">
+                    <div class="row">
+                        <div class="content col-md-8">
+                            {% for new in pagination %}
+                            <div class="post">
+                                <h2 class="entry-title">{{ new.title }}</h2>
+                                <div class="featured-image"><img src="uploads/images/{{ new.img }}" alt=""></div>
+                                <p>{{ new.content }}</p>
+                                <a href="/single/news/{{ new.id }}" class="button">Read more</a>
+                            </div>
+                            {% endfor %}
+                            <div class="navigation">
+                                {{ knp_pagination_render(pagination) }}
+                            </div>
+                        </div>
+                        {{ render(controller('App\\Controller\\BaseController\\SideBar::NewsSideBar')) }}
+                    </div>
+                </div>
+            </div>
+        </main> <!-- .main-content -->
+{% endblock %}

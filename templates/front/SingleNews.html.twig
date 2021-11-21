@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{#  563492ad6f91700001000001af442567fd6a482cb3988fea1c48c344#}
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body%}
+    <main class="main-content">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="/home">Home</a>
+                <a href="/news">News</a>
+                <span>{{ news.title }}</span>
+            </div>
+        </div>
+        <div class="fullwidth-block">
+            <div class="container">
+                <div class="row">
+                    <div class="content col-md-8">
+                        <div class="post single">
+                            <h2 class="entry-title">{{ news.title }}</h2>
+                            <div class="featured-image"><img src="/uploads/images/{{ news.img }}" alt=""></div>
+
+                            <div class="entry-content">
+                                <p>{{ news.content }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {{ render(controller('App\\Controller\\BaseController\\SideBar::NewsSideBar')) }}
+                </div>
+            </div>
+        </div>
+    </main> <!-- .main-content -->
+{% endblock %}

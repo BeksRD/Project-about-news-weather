@@ -1,0 +1,182 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+        <div class="hero">
+            <div class="container">
+                <form action="/get/weather/about/city" method="POST" class="find-location">
+                    <input type="text" name="city" placeholder="Find your location...">
+                    <input type="submit" value="Find">
+                </form>
+
+            </div>
+        </div>
+    
+    {% for message in app.flashes('notice') %}
+        <div class="flash-notice">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <div class="forecast-table">
+            <div class="container">
+                <div class="forecast-container">
+                    <div class="today forecast">
+                        <div class="forecast-header">
+                            <div id="day{{ days[0]}}" class="day"></div>
+                            <div class="date">6 Oct</div>
+                        </div> <!-- .forecast-header -->
+                        <div class="forecast-content">
+                            <div class="location">New York</div>
+                            <div class="degree">
+                                <div id="degree{{ days[0]}}" class="num"></div>
+                                <div class="forecast-icon">
+                                    <img src="/uploads/images/icons/icon-1.svg" alt="" width=90>
+                                </div>
+                            </div>
+                            <span><img src="/uploads/images/icon-umberella.png" alt="">20%</span>
+                            <span><img src="/uploads/images/icon-wind.png" alt="">18km/h</span>
+                            <span><img src="/uploads/images/icon-compass.png" alt="">East</span>
+                        </div>
+                    </div>
+                    <div class="forecast">
+                        <div class="forecast-header">
+                            <div id="day{{ days[1]  }}" class="day"></div>
+                        </div> <!-- .forecast-header -->
+                        <div class="forecast-content">
+                            <div class="forecast-icon">
+                                <img src="/uploads/images/icons/icon-3.svg" alt="" width=48>
+                            </div>
+                            <div id="degree{{ days[1]}}" class="degree"></div>
+                            <small id="degree_at_night{{ days[1] }}"></small>
+                        </div>
+                    </div>
+                    <div class="forecast">
+                        <div class="forecast-header">
+                            <div id="day{{ days[2]  }}" class="day"></div>
+                        </div> <!-- .forecast-header -->
+                        <div class="forecast-content">
+                            <div class="forecast-icon">
+                                <img src="/uploads/images/icons/icon-5.svg" alt="" width=48>
+                            </div>
+                            <div id="degree{{ days[2]}}"class="degree"><sup></div>
+                            <small id="degree_at_night{{ days[2] }}"></small>
+                        </div>
+                    </div>
+                    <div class="forecast">
+                        <div class="forecast-header">
+                            <div id="day{{ days[3]  }}" class="day"></div>
+                        </div> <!-- .forecast-header -->
+                        <div class="forecast-content">
+                            <div class="forecast-icon">
+                                <img src="/uploads/images/icons/icon-7.svg" alt="" width=48>
+                            </div>
+                            <div id="degree{{ days[3]}}"class="degree"><sup></div>
+                            <small id="degree_at_night{{ days[3] }}"></small>
+                        </div>
+                    </div>
+                    <div class="forecast">
+                        <div class="forecast-header">
+                            <div id="day{{ days[4]  }}" class="day"></div>
+                        </div> <!-- .forecast-header -->
+                        <div class="forecast-content">
+                            <div class="forecast-icon">
+                                <img src="/uploads/images/icons/icon-12.svg" alt="" width=48>
+                            </div>
+                            <div id="degree{{ days[4]}}" class="degree"></div>
+                            <small id="degree_at_night{{ days[4] }}"></small>
+                        </div>
+                    </div>
+                    <div class="forecast">
+                        <div class="forecast-header">
+                            <div id="day{{ days[5]  }}" class="day"></div>
+                        </div> <!-- .forecast-header -->
+                        <div class="forecast-content">
+                            <div class="forecast-icon">
+                                <img src="/uploads/images/icons/icon-13.svg" alt="" width=48>
+                            </div>
+                            <div id="degree{{ days[5]}}" class="degree"></div>
+                            <small id="degree_at_night{{ days[5] }}"></small>
+                        </div>
+                    </div>
+                    <div class="forecast">
+                        <div class="forecast-header">
+                            <div id="day{{ days[6]  }}" class="day"></div>
+                        </div> <!-- .forecast-header -->
+                        <div class="forecast-content">
+                            <div class="forecast-icon">
+                                <img src="/uploads/images/icons/icon-14.svg" alt="" width=48>
+                            </div>
+                            <div id="degree{{ days[6]}}" class="degree"></div>
+                            <small id="degree_at_night{{ days[6] }}"></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <main class="main-content">
+            <div class="fullwidth-block">
+                <div class="container">
+                    <h2 class="section-title">Live cameras</h2>
+                    <div class="row">
+                        {% for video in data.video %}
+                        <div class="col-md-3 col-sm-6">
+                            <div class="live-camera">
+                                <video src="/uploads/images/{{ video.path }}" width="262px" height="185" controls="controls" poster="/uploads/images{{ video.preview }}"></video>
+{#                                <figure class="live-camera-cover"><img style="width: 262px;height: 185px" src="/src/images/new-york.jpg" alt=""></figure>#}
+                                <h3 class="location">{{ video.title }}</h3>
+                                <small class="date">{{ video.CreatedAt|date('d-m-y') }}</small>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="fullwidth-block" style="background-color: rgb(38, 41, 54);" data-bg-color="#262936">
+                <div class="container">
+                    <div class="row">
+                        {% for new in data.news %}
+                        <div class="col-md-4">
+                            <div class="news">
+                                <div class="date">{{ new.CreatedAt|date('d.m') }}</div>
+                                <h3><a href="/single/news/{{ new.id }}">{{ new.title}}</a></h3>
+                                <p>{{ new.content }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="fullwidth-block">
+                <div class="container">
+                    <div class="row">
+                        {% for category in data.categoryNews %}
+                        <div class="col-md-4">
+                            <h2 class="section-title">{{ category.title }}</h2>
+                            <ul class="arrow-feature">
+                                {% for new_in_category in category.News %}
+                                <li>
+                                    <h3>{{ new_in_category.title }}</h3>
+                                    <p>{{ new_in_category.content }}</p>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endfor %}
+                        <div class="col-md-4">
+                            <h2 class="section-title">Awesome Photos</h2>
+                            <div class="photo-grid">
+                                {% for photo in data.photo %}
+                                <a href="#"><img class="awesome_photo" src="uploads/images/{{ photo.path }}" alt="#"></a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main> <!-- .main-content -->
+{% endblock %}

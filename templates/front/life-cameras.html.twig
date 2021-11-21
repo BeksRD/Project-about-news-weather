@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+    <main class="main-content">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="/home">Home</a>
+                <span>Live cameras</span>
+            </div>
+        </div>
+
+        <div class="fullwidth-block">
+            <div class="container">
+                <div class="filter">
+                    <div class="country filter-control">
+                        <label for="">Country</label>
+                        <span class="select control">
+									<select name="" id="">
+										<option value="">All Countries</option>
+									</select>
+								</span>
+                    </div>
+                    {% if knp_pagination_render(pagination) == "" %}
+                        {% else %}
+                            <div class="count filter-control">
+                                <div class="navigation">
+                                    {{ knp_pagination_render(pagination) }}
+                                </div>
+                            </div>
+                    {% endif %}
+                    <div class="quality filter-control">
+                        <label for="">Only high quality</label>
+                        <span class="select control">
+									<select name="" id="">
+										<option value="">Yes</option>
+										<option value="">No</option>
+									</select>
+								</span>
+                    </div>
+                </div>
+                <div class="row">
+
+                    {% for video in pagination %}
+                    <div class="col-md-3 col-sm-6">
+                        <div class="live-camera">
+                            <video src="/uploads/images/{{ video.path }}" width="262px" height="185" controls="controls" poster="/{{ video.preview }}"></video>
+                            <h3 class="location">{{ video.title }}</h3>
+                            <small class="date">{{ video.CreatedAt|date('d m, h:m') }}</small>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+    </main>
+{% endblock %}

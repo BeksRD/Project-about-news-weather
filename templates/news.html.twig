@@ -1,0 +1,9 @@
+
+{%for new in news %}
+                            <div class="post">
+                                <h2 class="entry-title">{{ new.title }}</h2>
+                                <div class="featured-image"><img src="uploads/images/{{ new.img }}" alt=""></div>
+                                <p>{{ new.content }}</p>
+                                <a href="#" class="button">Read more</a>
+                            </div>
+{% endfor %}

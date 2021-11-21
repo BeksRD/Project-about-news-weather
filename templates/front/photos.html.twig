@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+    <main class="main-content">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="/home">Home</a>
+                <span>Photos</span>
+            </div>
+        </div>
+
+        <div class="fullwidth-block">
+            <div class="container">
+                <div class="row" style="display: grid; grid-template-columns: 45% 45%;">
+                        {% for photo in pagination %}
+                        <div class="photo" style="margin-left: 30px">
+                            <div class="photo-preview photo-detail" style="background: url('uploads/images/{{ photo.path }}')0 0/100% 100% no-repeat;"></div>
+                            <div class="photo-details">
+                                <h3 class="photo-title"><a href="#">{{ photo.title }}</a></h3>
+                                <p>{{ photo.content }}</p>
+                                <div class="star-rating" title="Rated 1 out of 5"><span style="width:60%"><strong class="rating">1</strong> out of 5</span></div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% if knp_pagination_render(pagination) == "" %}
+                    {% else %}
+                        <div class="count filter-control">
+                            <div class="navigation">
+                                {{ knp_pagination_render(pagination) }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    </main>
+{% endblock %}
