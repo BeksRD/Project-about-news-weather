@@ -35,18 +35,22 @@
 				data:data,
 				success:function(message){
 					$.map(message.weather.daily, function (weather){
-						console.log(message);
+						console.log(weather);
+						let timestamp = message.weather.current.dt * 1000;
+						let timestamp_today = new Date(timestamp);
+						let today = timestamp_today.toLocaleString();
+						today = today.split([',']);
 						let temp = (((weather.temp.max - 32) * 5) / 9);
 						let temp_night = (((weather.temp.min - 32) * 5) / 9);
 						let milliseconds = weather.dt * 1000;
 						let dateObject = new Date(milliseconds);
 						let humanDateFormat = dateObject.getDay();
 						let days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
-
+						$('.location').html(message.cityName);
 						$('#day' +humanDateFormat).html(days[humanDateFormat]);
 						$('#degree' +humanDateFormat).html(Math.round(temp)+'<sup>o</sup>C');
 						$('#degree_at_night' +humanDateFormat).html(Math.round(temp_night)+'<sup>o</sup>C');
-
+						$('#date1').html(today[0]);
 					});
 				}
 			});

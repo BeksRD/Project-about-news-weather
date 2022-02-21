@@ -44,6 +44,6 @@ class WeatherApi extends AbstractController
         // $content = '{"id":521583, "name":"symfony-docs", ...}'
         $content = $response->toArray();
         // $content = ['id' => 521583, 'name' => 'symfony-docs', ...]
-        return new JsonResponse(['weather'=>$content]);
+        return new JsonResponse(['weather'=>$content,'cityName'=>$result['results'][0]['components']['city']]);
     }
 }

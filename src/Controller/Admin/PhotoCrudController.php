@@ -19,10 +19,12 @@ class PhotoCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
+            IdField::new('id')
+            ->hideOnForm(),
             TextField::new('title'),
             TextEditorField::new('content'),
-            ImageField::new('path'),
+            ImageField::new('path')
+            ->setUploadDir('public/uploads/images'),
         ];
     }
 }
